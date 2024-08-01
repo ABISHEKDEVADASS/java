@@ -1,0 +1,78 @@
+import java.sql.*;
+import java.util.*;
+
+public class Main {
+	
+
+	public static void main(String[] args) throws SQLException {
+		Scanner scan=new Scanner(System.in);//int
+		Scanner scan_string=new Scanner(System.in);
+		System.out.println("Enter Name: ");
+		String pass_name=scan_string.nextLine();
+		System.out.println("Enter bus Number: ");
+		
+		int bus_num=+scan.nextInt();
+		
+		
+		String url="jdbc:mysql://127.0.0.1:3306/jdbc";
+	    String user="root";
+	    String password="@Ph9843904979";
+	    Connection con=DriverManager.getConnection(url, user, password); 
+	    //get bus num from user to display capacity
+	    String query="select capacity from bus where bus_no=?";
+	    PreparedStatement st=con.prepareStatement(query);
+	    st.setInt(1, bus_num);
+	    ResultSet rs=st.executeQuery();
+	    boolean a=rs.next();
+	    if(a) {
+	    	int Capacity=rs.getInt(1);
+	    	int pass_count=check_cap(con,bus_num);
+	    	check_capacity(Capacity,bus_num,pass_name,con,pass_count);
+	    	
+	    }
+	    
+	    
+	   
+	
+	    scan.close();
+	}
+	 //checking if space is available on particular bus
+	static void check_capacity(int r_cap,int r_busnum,String r_name,Connection con,int r_pass_count) throws SQLException{
+		if(r_cap-r_pass_count>0) {
+			establish_booking(r_busnum,r_name,con);
+		}
+		else {
+			System.out.println("Bus not having enough space");
+		}
+		
+	}
+	static void establish_booking(int rr_busnum,String rr_name,Connection rr_con) throws SQLException{
+		String Q_add_pass="insert into passenger values(?,?)";
+		PreparedStatement st=rr_con.prepareStatement(Q_add_pass);
+		st.setInt(1, rr_busnum);
+		st.setString(2, rr_name);
+		int row=st.executeUpdate();
+		System.out.println("Booking Completed");
+		System.out.println("Congradulation "+rr_name+ ",Number of seat you booked: "+row);
+		
+		String[] args = {}; // Create an empty args array if not used
+        main(args);
+	}
+	//checking how many pass in that bus
+	static int check_cap(Connection r_con,int r_busno) throws SQLException{
+		String query="Select count(*) from passenger where bus_no=?";
+		PreparedStatement ps=r_con.prepareStatement(query);
+		ps.setInt(1, r_busno);
+		ResultSet rs=ps.executeQuery();
+		if(rs.next()) {
+		return rs.getInt(1);
+		
+	
+	}
+		else {
+            return 0; // No rows means no passengers
+        }
+	
+}
+	
+}
