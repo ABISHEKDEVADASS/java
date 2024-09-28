@@ -1,0 +1,10 @@
+<input id="type" type="text" onkeyup="update()">
+<p id="result"></p>
+<script>
+    var typing = document.getElementById("type")
+    var results= document.getElementById("result")
+    function update() 
+    {
+    results.textContent=typing.value
+    }
+</script>

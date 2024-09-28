@@ -1,0 +1,8 @@
+<dependencies>
+    <dependency>
+        <groupId>com.twilio.sdk</groupId>
+        <artifactId>twilio</artifactId>
+        <version>8.30.0</version>
+    </dependency>
+    <!-- Other dependencies may be listed here -->
+</dependencies>

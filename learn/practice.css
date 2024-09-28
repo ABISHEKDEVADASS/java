@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+}
+header{
+    display: flex;
+}
+
+#logo {
+    display: inline;
+    margin-left: 15%;
+    background-color: white;
+    
+}
+h2{
+    display: flex;
+    margin-left: 60%;
+}
+#search-icon{
+    padding-left: 30px;
+    display: flex;
+
+}
+
+#bg{
+    background-color: rgb(32, 227, 32);
+width: 75%;
+height: 500px;
+margin-left: 75%;
+margin-top: 100px;  
+display: flex;
+}
+#about_class{
+    display: flex;
+    margin-bottom: 90%;
+
+}
+#d_body{
+    display: flex;
+    box-sizing: border-box;
+}
+.req{
+     display: block;
+}
